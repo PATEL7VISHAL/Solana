@@ -1,5 +1,5 @@
 {
-  "name": "advance_math",
+  "name": "count-hello",
   "version": "1.0.0",
   "description": "",
   "main": "src/client/main.ts",
@@ -10,10 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@solana/buffer-layout": "^4.0.0",
     "@solana/web3.js": "^1.43.1",
     "borsh": "^0.7.0",
-    "buffer": "^6.0.3",
     "ts-node": "^10.8.0"
   }
 }

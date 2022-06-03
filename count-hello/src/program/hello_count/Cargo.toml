@@ -1,5 +1,5 @@
 [package]
-name = "calc"
+name = "hello_count"
 version = "0.1.0"
 edition = "2021"
 
@@ -15,4 +15,5 @@ solana-program-test = "~1.8.14"
 solana-sdk = "~1.8.14"
 
 [lib]
+name = "helloworld"
 crate-type = ["cdylib", "lib"]
