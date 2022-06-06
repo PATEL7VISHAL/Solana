@@ -9,13 +9,14 @@ import {
 // import * as borsh from 'borsh';
 import * as path from 'path';
 import fs from 'fs';
+const lo = require("buffer-layout");
 
 const connection = new Connection("https://api.devnet.solana.com", "confirmed");
 // const ROOT_PATH = path.resolve(__dirname, );
 // const program_path = path.resolve(__dirname, "src/program/transaction/target/deploy/transaction-keypair.json");
 const program_path = "/home/ak/code/solana/sol_transaction/src/program/transaction/target/deploy/transaction-keypair.json";
 const programId = Keypair.fromSecretKey(Uint8Array.from(JSON.parse(fs.readFileSync(program_path, { encoding: 'utf8' })))).publicKey;
-
+console.log("pingin the : "+ programId.toBase58());
 
 function parse_key(file_name: string): Keypair {
     let full_filename = path.resolve(__dirname, '../../users/', file_name);
@@ -39,7 +40,10 @@ const TRANSACTION_SPACE = 4; // byte.
 // const payer = parse_key("mayank.json");
 async function send_lamports(from: Keypair, to: Keypair, amount: number) {
     console.log("Sending lamports ...");
-    let data = parse_amount(amount);
+    // let data = parse_amount(amount);
+    let data = Buffer.alloc(8) // 8 bytes
+    // lo.ns64("value").encode(new BN(amount), data);
+    lo.ns64("value").encode(amount, data);
     let ins = new TransactionInstruction({
         keys: [
             { pubkey: from.publicKey, isSigner: true, isWritable: false },
@@ -71,7 +75,7 @@ async function main() {
     console.log("cj sends 1 sol lamports to mayand");
     console.log("cj :: ", cj.publicKey.toBase58());
     console.log("jenny :: ", jenny.publicKey.toBase58());
-    await send_lamports(cj, jenny, 1000000);
+    await send_lamports(cj, jenny, 1000000000);
 
 }
 
